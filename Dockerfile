@@ -1,0 +1,1 @@
+FROM getpinry/pinry:latest
