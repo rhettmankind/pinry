@@ -32,29 +32,30 @@
                      @load="onPinImageLoaded(item.id)"
                      @click="openPreview(item)"
                      :alt="item.description"
-                     :style="item.style"
+                    :style="{ width: '100%', height: '250px', objectFit: 'cover', borderRadius: '20px' }"
                      class="pin-preview-image">
                 </div>
                 <div class="pin-footer">
-                  <div class="description" v-show="item.description" v-html="niceLinks(item.description)"></div>
+                  <!-- <div class="description" v-show="item.description" v-html="niceLinks(item.description)"></div> -->
                   <div class="details">
                     <div class="is-pulled-left">
-                      <img class="avatar" :src="item.avatar" alt="">
+                      <!-- <img class="avatar" :style="{ width: '100%', height: '30px', marginBottom: '12px' }"
+ :src="item.avatar" alt=""> -->
                     </div>
                     <div class="pin-info">
-                      <span class="dim">{{ $t("pinnedByInfo") }}&nbsp;
-                        <span>
+                      <!-- <span class="dim">{{ $t("pinnedByInfo") }}&nbsp; -->
+                        <span >
                           <router-link
                             :to="{ name: 'user', params: {user: item.author} }">
-                            {{ item.author }}
+                            <!-- {{ item.author }} -->
                           </router-link>
                         </span>
                         <template v-if="item.tags.length > 0">
-                          &nbsp;in&nbsp;
+                          <!-- &nbsp;in&nbsp; -->
                           <template v-for="tag in item.tags">
                             <span v-bind:key="tag" class="pin-tag">
                               <router-link :to="{ name: 'tag', params: {tag: tag} }"
-                                           params="{tag: tag}">{{ tag }}</router-link>
+                                           params="{tag: tag}">{{ `${tag},` }}</router-link>
                             </span>
                           </template>
                         </template>
@@ -327,52 +328,67 @@ $avatar-height: 30px;
 @import './utils/fonts';
 @import './utils/loader.scss';
 
-.pin-card{
+.pin-card {
+  position: relative;
+  height: 250px;
+  overflow: hidden;
+  border-radius: 20px;
+
   .pin-preview-image {
     cursor: zoom-in;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 20px;
+    display: block;
   }
-  > img {
-    min-width: $pin-preview-width;
-    background-color: white;
-    border-radius: 3px 3px 0 0;
-    @include loader('../assets/loader.gif');
+
+  .pin-footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color:  rgba(255, 255, 255, 0.7);
+    border-radius: 0 0 20px 20px;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+    transform: translateY(100%);     // hidden below card
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    z-index: 10;
+
+    .description {
+      @include description-font;
+      padding: 8px;
+      border-bottom: 1px solid #DDDDDD;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .details {
+      @include secondary-font;
+      padding: 10px;
+      > .pin-info {
+        line-height: 16px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-bottom: 10px!important;
+     
+      }
+
+      .pin-info a {
+        font-weight: bold;
+      }
+    }
   }
-  .avatar {
-    height: $avatar-height;
-    width: $avatar-width;
-    border-radius: 3px;
-  }
-  .pin-tag {
-    margin-right: 0.2rem;
+
+  &:hover .pin-footer {
+    transform: translateY(20%);
+    opacity: 1;
   }
 }
-.pin-footer {
-  position: relative;
-  overflow-wrap: break-word;
-  top: $pin-footer-position-fix;
-  background-color: white;
-  border-radius: 0 0 3px 3px ;
-  box-shadow: 0 1px 0 #bbb;
-  .description {
-    @include description-font;
-    padding: 8px;
-    border-bottom: 1px solid #DDDDDD;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  .details {
-    @include secondary-font;
-    padding: 10px;
-    > .pin-info {
-      line-height: 16px;
-      width: 220px;
-      padding-left: $avatar-width + 5px;
-    }
-    .pin-info a {
-      font-weight: bold;
-    }
-  }
-}
+
 
 @import 'utils/grid-layout';
 @include screen-grid-layout("#pins-container")
