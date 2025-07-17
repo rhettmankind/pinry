@@ -31,7 +31,10 @@ FROM python:3.9.12-slim-buster
 ARG DEBIAN_FRONTEND=noninteractive
 
 WORKDIR pinry
+USER root
 RUN mkdir /data && chown -R www-data:www-data /data
+USER www-data
+
 
 RUN groupadd -g 2300 tmpgroup \
  && usermod -g tmpgroup www-data \
