@@ -372,7 +372,7 @@ regex==2022.6.2 ; python_version >= "3.7" \
     --hash=sha256:fcd7c432202bcb8b642c3f43d5bcafc5930d82fe5b2bf2c008162df258445c1d \
     --hash=sha256:fdecb225d0f1d50d4b26ac423e0032e76d46a788b83b4e299a520717a47d968c \
     --hash=sha256:ffef4b30785dc2d1604dfb7cf9fca5dc27cd86d65f7c2a9ec34d6d3ae4565ec2
-requests==2.27.1 ; python_version >= "3.7" \
+requests==2.28.0 ; python_version >= "3.7" \
     --hash=sha256:68d7c56fd5a8999887728ef304a6d12edc7be74f1cfa47714fc8b414525c9a61 \
     --hash=sha256:f22fa1e554c9ddfd16e6e41ac79759e17be9e492b3587efa038054674760e72d
 rjsmin==1.2.0 ; python_version >= "3.7" \
@@ -481,7 +481,7 @@ typing-extensions==4.2.0 ; python_version < "3.8" and python_version >= "3.7" \
 uritemplate==4.1.1 ; python_version >= "3.7" \
     --hash=sha256:4346edfc5c3b79f694bccd6d6099a322bbeb628dbf2cd86eea55a456ce5124f0 \
     --hash=sha256:830c08b8d99bdd312ea4ead05994a38e8936266f84b9a7878232db50b044e02e
-urllib3==1.22 ; python_version >= "3.7" \
+urllib3==1.26.6 ; python_version >= "3.7" \
     --hash=sha256:06330f386d6e4b195fbfc736b297f58c5a892e4440e54d294d7004e3a9bbea1b \
     --hash=sha256:cc44da8e1145637334317feebd728bd869a35285b93cbb4cca2577da7e62db4f
 zipp==3.8.0 ; python_version < "3.8" and python_version >= "3.7" \
