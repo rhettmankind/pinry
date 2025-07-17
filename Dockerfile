@@ -13,7 +13,7 @@ FROM python:3.11-slim as base
 ARG DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update \
-    && apt-get -y install build-essential gcc python3-dev libpq-dev \
+     && apt-get -y install build-essential gcc python3-dev libpq-dev \
     && rm -rf /var/lib/apt/lists/*
 
 # Final image
