@@ -30,7 +30,7 @@ DATABASES = {
     #     'PORT': 5432,
     # }
     'default': dj_database_url.config(
-        default='postgresql://postgres:nglnIosttSoPHTOqxkPQmFMNlYFAOkrJ@postgres.railway.internal:5432/railway'
+        default='postgresql://postgres:nglnIosttSoPHTOqxkPQmFMNlYFAOkrJ@postgres.railway.internal:5432/railway',
         conn_max_age=600
     )
 }
