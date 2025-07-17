@@ -374,7 +374,8 @@ regex==2022.6.2 ; python_version >= "3.7" \
     --hash=sha256:ffef4b30785dc2d1604dfb7cf9fca5dc27cd86d65f7c2a9ec34d6d3ae4565ec2
 requests==2.28.0 ; python_version >= "3.7" \
     --hash=sha256:68d7c56fd5a8999887728ef304a6d12edc7be74f1cfa47714fc8b414525c9a61 \
-    --hash=sha256:f22fa1e554c9ddfd16e6e41ac79759e17be9e492b3587efa038054674760e72d
+    --hash=sha256:f22fa1e554c9ddfd16e6e41ac79759e17be9e492b3587efa038054674760e72d \
+    --hash=bc7861137fbce630f17b03d3ad02ad0bf978c844f3536d0edda6499dafce2b6f
 rjsmin==1.2.0 ; python_version >= "3.7" \
     --hash=sha256:05efa485dfddb6418e3b86d8862463aa15641a61f6ae05e7e6de8f116ee77c69 \
     --hash=sha256:1622fbb6c6a8daaf77da13cc83356539bfe79c1440f9664b02c7f7b150b9a18e \
