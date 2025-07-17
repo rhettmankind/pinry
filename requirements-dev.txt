@@ -490,3 +490,6 @@ urllib3==1.26.6 ; python_version >= "3.7" \
 zipp==3.8.0 ; python_version < "3.8" and python_version >= "3.7" \
     --hash=sha256:56bf8aadb83c24db6c4b577e13de374ccfb67da2078beba1d037c17980bf43ad \
     --hash=sha256:c4f6e5bbf48e74f7a38e7cc5b0480ff42b0ae5178957d564d18932525d5cf099
+dj-database-url==1.0.3 \
+    --hash=sha256:141077780995d38c4a68a0d32d5affb016f288f54ff4f6296a9f1fee9e44aae3 \
+    --hash=sha256:d2e652fd9f4435b80725ad15691d7ea33ead56950614b9acc451c778f8bd2a1f
