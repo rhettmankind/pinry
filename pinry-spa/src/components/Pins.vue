@@ -60,7 +60,6 @@
                           </template>
                         </template>
                         <span v-if="item.referer">• <a :href="item.referer" target="_blank">{{ $t("sourceLink") }}</a></span>
-                      </span>
                     </div>
                     <div class="is-clearfix"></div>
                   </div>
