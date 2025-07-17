@@ -56,7 +56,6 @@ ADD docker/nginx/sites-enabled/default /etc/nginx/sites-enabled/default
 # Expose the port Railway provides
 EXPOSE ${PORT}
 ENV DJANGO_SETTINGS_MODULE pinry.settings.docker
-VOLUME ["/data"]
 
 # Start script (should handle migrations, collectstatic, gunicorn, nginx, and use $PORT)
 CMD ["/pinry/docker/scripts/start.sh"]
