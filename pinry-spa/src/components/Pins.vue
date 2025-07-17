@@ -373,7 +373,6 @@ $avatar-height: 30px;
         justify-content: center;
         align-items: center;
         padding-bottom: 10px!important;
-     
       }
 
       .pin-info a {
