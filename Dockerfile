@@ -1,13 +1,8 @@
-# -----------------------------------------------------------------------------
+# ----------------------------------------------------------------------------- 
 # docker-pinry
 #
 # Builds a basic docker image that can run Pinry and serve
-# all of it's assets, there are more optimal ways to do this but this is the
-# most friendly and has everything contained in a single instance.
-#
-# Authors: Isaac Bythewood, Jason Kaltsikis
-# Updated: May 2nd, 2020
-# Require: Docker (http://www.docker.io/)
+# all of its assets, contained in a single instance.
 # -----------------------------------------------------------------------------
 
 # Build static pnpm file
@@ -74,6 +69,9 @@ ADD docker/nginx/sites-enabled/default /etc/nginx/sites-enabled/default
 
 # 80 is for nginx web, /data contains static files and database /start runs it.
 EXPOSE 80
-ENV DJANGO_SETTINGS_MODULE pinry.settings.docker
-VOLUME ["/data"]
-CMD    ["/pinry/docker/scripts/start.sh"]
+
+ENV DJANGO_SETTINGS_MODULE=pinry.settings.docker
+# Removed the VOLUME instruction because Railway handles volumes separately
+
+# Start the app with the provided start script
+CMD ["/pinry/docker/scripts/start.sh"]
