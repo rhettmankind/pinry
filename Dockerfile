@@ -1,81 +1,19 @@
-# ----------------------------------------------------------------------------- 
-# docker-pinry
-#
-# Builds a basic docker image that can run Pinry and serve
-# all of its assets, contained in a single instance.
-# -----------------------------------------------------------------------------
+FROM python:3.11-slim
 
-# Build static pnpm file
-FROM node:18-bookworm as pnpm-build
+WORKDIR /app
 
-WORKDIR pinry-spa
-COPY pinry-spa/package.json pinry-spa/pnpm-lock.yaml ./
-RUN npm install -g pnpm
-RUN pnpm install
-COPY pinry-spa .
-RUN pnpm build
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    libpq-dev \
+    libjpeg-dev \
+    zlib1g-dev \
+    && rm -rf /var/lib/apt/lists/*
 
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Required for other database options
-FROM python:3.9.12-slim-buster as base
-ARG DEBIAN_FRONTEND=noninteractive
+  RUN python manage.py migrate
+  RUN python manage.py collectstatic --noinput
 
-RUN apt-get update \
-    && if [ $(dpkg --print-architecture) = "arm64" -o $(dpkg --print-architecture) = "armhf" ]; then apt-get -y install apt-utils; fi \
-    && apt-get -y install pkg-config gcc default-libmysqlclient-dev
-RUN pip --no-cache-dir install --user mysqlclient cx-Oracle
-
-
-# Final image
-FROM python:3.9.12-slim-buster
-ARG DEBIAN_FRONTEND=noninteractive
-
-WORKDIR pinry
-
-# Create /data directory
-RUN mkdir /data
-
-# Change ownership in separate steps
-RUN chown -R www-data:www-data /data
-
-# Split user/group commands into separate RUN steps for stability
-RUN groupadd -g 2300 tmpgroup
-RUN usermod -g tmpgroup www-data
-RUN groupdel www-data
-RUN groupadd -g 1000 www-data
-RUN usermod -g www-data www-data
-RUN usermod -u 1000 www-data
-RUN groupdel tmpgroup
-
-RUN apt-get update \
-    && apt-get -y install nginx pwgen \
-    && apt-get -y install libopenjp2-7 libjpeg-turbo-progs libjpeg62-turbo-dev libtiff5-dev libxcb1 \
-    && if [ $(dpkg --print-architecture) = "arm64" -o $(dpkg --print-architecture) = "armhf" ]; then apt-get -y install apt-utils libpq-dev gcc; fi \
-    && rm -rf /var/lib/apt/lists/* \
-    && apt-get autoclean
-
-# Install Pipfile requirements
-COPY requirements.txt ./
-RUN pip install "rcssmin==1.0.6" --install-option="--without-c-extensions" \
-    && pip install -r requirements.txt
-
-# Copy from previous stages
-COPY --from=pnpm-build pinry-spa/dist /pinry/pinry-spa/dist
-COPY --from=base /root/.local /root/.local
-ENV PATH=/root/.local/bin:$PATH
-
-COPY . .
-
-# Load in all of our config files.
-ADD docker/nginx/nginx.conf /etc/nginx/nginx.conf
-ADD docker/nginx/sites-enabled/default /etc/nginx/sites-enabled/default
-
-# Expose port 80 for nginx web
-EXPOSE 80
-
-ENV DJANGO_SETTINGS_MODULE=pinry.settings.docker
-
-# Removed VOLUME as Railway handles volumes
-
-# Start the app with the provided start script
-CMD ["/pinry/docker/scripts/start.sh"]
+CMD ["gunicorn", "pinry.wsgi:application", "--bind", "0.0.0.0:8000"]
