@@ -37,4 +37,7 @@ REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'] = [
 ]
 
 # should not ignore import error in production, local_settings is required
-from .local_settings import *
+try:
+    from .local_settings import *
+except ImportError:
+    pass
