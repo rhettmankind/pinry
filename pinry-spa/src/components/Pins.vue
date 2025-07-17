@@ -32,7 +32,7 @@
                      @load="onPinImageLoaded(item.id)"
                      @click="openPreview(item)"
                      :alt="item.description"
-                    :style="{ width: '100%', height: '250px', objectFit: 'cover', borderRadius: '20px' }"
+                    :style="{ width: '100%', height: 'auto', borderRadius: '20px' }"
                      class="pin-preview-image">
                 </div>
                 <div class="pin-footer">
@@ -329,15 +329,12 @@ $avatar-height: 30px;
 
 .pin-card {
   position: relative;
-  height: 250px;
   overflow: hidden;
   border-radius: 20px;
 
   .pin-preview-image {
     cursor: zoom-in;
     width: 100%;
-    height: 100%;
-    object-fit: cover;
     border-radius: 20px;
     display: block;
   }
