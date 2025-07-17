@@ -29,5 +29,5 @@ COPY . .
 RUN python manage.py collectstatic --noinput || true
 
 # Start with migrations and Gunicorn
-EXPOSE 8000
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "pinry.wsgi:application"]
+EXPOSE 80
+CMD ["/pinry/docker/scripts/start.sh"]
