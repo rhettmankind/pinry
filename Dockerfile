@@ -31,25 +31,25 @@ FROM python:3.9.12-slim-buster
 ARG DEBIAN_FRONTEND=noninteractive
 
 WORKDIR pinry
-USER root
-RUN mkdir /data && chown -R www-data:www-data /data
-USER www-data
 
+# Create /data directory
+RUN mkdir /data
 
-RUN groupadd -g 2300 tmpgroup \
- && usermod -g tmpgroup www-data \
- && groupdel www-data \
- && groupadd -g 1000 www-data \
- && usermod -g www-data www-data \
- && usermod -u 1000 www-data \
- && groupdel tmpgroup
+# Change ownership in separate steps
+RUN chown -R www-data:www-data /data
+
+# Split user/group commands into separate RUN steps for stability
+RUN groupadd -g 2300 tmpgroup
+RUN usermod -g tmpgroup www-data
+RUN groupdel www-data
+RUN groupadd -g 1000 www-data
+RUN usermod -g www-data www-data
+RUN usermod -u 1000 www-data
+RUN groupdel tmpgroup
 
 RUN apt-get update \
-    # Install nginx
-    && apt-get -y  install nginx pwgen \
-    # Install Pillow dependencies
+    && apt-get -y install nginx pwgen \
     && apt-get -y install libopenjp2-7 libjpeg-turbo-progs libjpeg62-turbo-dev libtiff5-dev libxcb1 \
-    # Needed to compile psycopg2 on arm (fallback for psycopg2-binary)
     && if [ $(dpkg --print-architecture) = "arm64" -o $(dpkg --print-architecture) = "armhf" ]; then apt-get -y install apt-utils libpq-dev gcc; fi \
     && rm -rf /var/lib/apt/lists/* \
     && apt-get autoclean
@@ -70,11 +70,12 @@ COPY . .
 ADD docker/nginx/nginx.conf /etc/nginx/nginx.conf
 ADD docker/nginx/sites-enabled/default /etc/nginx/sites-enabled/default
 
-# 80 is for nginx web, /data contains static files and database /start runs it.
+# Expose port 80 for nginx web
 EXPOSE 80
 
 ENV DJANGO_SETTINGS_MODULE=pinry.settings.docker
-# Removed the VOLUME instruction because Railway handles volumes separately
+
+# Removed VOLUME as Railway handles volumes
 
 # Start the app with the provided start script
 CMD ["/pinry/docker/scripts/start.sh"]
