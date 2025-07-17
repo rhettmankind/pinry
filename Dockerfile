@@ -36,6 +36,8 @@ RUN apt-get update \
     && apt-get -y install nginx pwgen \
     # Install Pillow dependencies
     && apt-get -y install libopenjp2-7 libjpeg-turbo-progs libjpeg62-turbo-dev libtiff5-dev libxcb1 \
+    # Install build tools for Python packages
+    && apt-get -y install build-essential gcc python3-dev libpq-dev \
     && rm -rf /var/lib/apt/lists/* \
     && apt-get autoclean
 
