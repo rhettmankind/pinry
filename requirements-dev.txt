@@ -182,7 +182,7 @@ pillow==9.1.1 ; python_version >= "3.7" \
     --hash=sha256:f372d0f08eff1475ef426344efe42493f71f377ec52237bf153c5713de987251 \
     --hash=sha256:f3f6a6034140e9e17e9abc175fc7a266a6e63652028e157750bd98e804a8ed9a \
     --hash=sha256:ffde4c6fabb52891d81606411cbfaf77756e3b561b566efd270b3ed3791fde4e
-psycopg2-binary==2.8.6 ; python_version >= "3.7" \
+psycopg2-binary==3.1.18 ; python_version >= "3.7" \
     --hash=sha256:0deac2af1a587ae12836aa07970f5cb91964f05a7c6cdb69d8425ff4c15d4e2c \
     --hash=sha256:0e4dc3d5996760104746e6cfcdb519d9d2cd27c738296525d5867ea695774e67 \
     --hash=sha256:11b9c0ebce097180129e422379b824ae21c8f2a6596b159c7659e2e5a00e1aa0 \
