@@ -63,6 +63,7 @@
                 </router-link>
               </div>
             </div>
+            <!--  ===== remove browser extension dropdown =====
             <div class="navbar-item has-dropdown is-hoverable">
               <a class="navbar-link">
                 {{ $t("browserExtensionsLink") }}
@@ -76,6 +77,7 @@
                 </a>
               </div>
             </div>
+            ===== end language dropdown ===== -->
           </div>
           <div class="navbar-end">
             <router-link
