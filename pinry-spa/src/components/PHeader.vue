@@ -87,6 +87,7 @@
                 custom-size="mdi-24px">
               </b-icon>
             </router-link>
+            <!--  ===== remove language dropdown =====
             <div
               class="navbar-item has-dropdown is-hoverable">
               <a class="navbar-link">
@@ -106,6 +107,7 @@
                 </a>
               </div>
             </div>
+            ===== end language dropdown ===== -->
             <div class="navbar-item">
               <div class="buttons">
                 <a
