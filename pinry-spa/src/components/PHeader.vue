@@ -17,9 +17,11 @@
         </div>
         <div id="PinryNav" class="navbar-menu" :class="{ 'is-active': active}">
           <div class="navbar-start">
+            <!--  ===== remove bookmarklet =====
             <a class="navbar-item" :href="bookmarklet">
               {{ $t("bookmarkletLink") }}
             </a>
+            ===== end bookmarklet ===== -->
             <div
               v-if="user.loggedIn"
               class="navbar-item has-dropdown is-hoverable">
@@ -77,7 +79,7 @@
                 </a>
               </div>
             </div>
-            ===== end language dropdown ===== -->
+            ===== end browser extension dropdown ===== -->
           </div>
           <div class="navbar-end">
             <router-link
