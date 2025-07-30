@@ -114,12 +114,14 @@
             ===== end language dropdown ===== -->
             <div class="navbar-item">
               <div class="buttons">
+                <!--  ===== remove signup =====
                 <a
                   @click="signUp"
                   v-show="!user.loggedIn"
                   class="button is-primary">
                   <strong>{{ $t("signUpLink") }}</strong>
                 </a>
+                ===== end signup ===== -->
                 <a
                   v-show="!user.loggedIn"
                   v-on:click="logIn"
